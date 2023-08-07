@@ -1,5 +1,5 @@
-const Migrations = artifacts.require('./Migrations.sol')
+const TasksList = artifacts.require('./TasksList.sol')
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations)
+  deployer.deploy(TasksList)
 }
