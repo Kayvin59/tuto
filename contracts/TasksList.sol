@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract TaskContract {
+contract TasksList {
     event AddTask(address recipient, uint TaskId);
     event DeleteTask(uint TaskId, bool isDeleted);
 
@@ -28,7 +28,6 @@ contract TaskContract {
       uint counter = 0;
 
       for(uint i = 0; i < tasks.length; i++) {
-        // if(taskToOwner[tasks[i].id] == msg.sender)
         if(taskToOwner[i] == msg.sender && tasks[i].isDeleted == false) {
           temporary[counter] = tasks[i];
           counter++;
