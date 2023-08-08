@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bubble-protocol/crypto": "^0.0.6"
+  }
+}

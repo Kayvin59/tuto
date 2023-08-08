@@ -108,6 +108,39 @@ export default function BubblePage() {
                       }
                     ],
                     "stateMutability": "view",
+                    "type": "function",
+                    "constant": true
+                  },
+                  {
+                    "inputs": [
+                      {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                      },
+                      {
+                        "internalType": "uint256",
+                        "name": "contentId",
+                        "type": "uint256"
+                      }
+                    ],
+                    "name": "getAccessPermissions",
+                    "outputs": [
+                      {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                      }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "constant": true
+                  },
+                  {
+                    "inputs": [],
+                    "name": "terminate",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
                     "type": "function"
                   },
                   {
@@ -150,13 +183,14 @@ export default function BubblePage() {
                             "type": "bool"
                           }
                         ],
-                        "internalType": "struct TaskList.Task[]",
+                        "internalType": "struct TasksList.Task[]",
                         "name": "",
                         "type": "tuple[]"
                       }
                     ],
                     "stateMutability": "view",
-                    "type": "function"
+                    "type": "function",
+                    "constant": true
                   },
                   {
                     "inputs": [
@@ -199,7 +233,8 @@ export default function BubblePage() {
                       };
                       setTasks([...tasks, newTask]);
                       console.log("Added task:", newTask);
-                      console.log("Added task:", tasks);
+                      console.log("Tasks:", tasks);
+                      setTaskcontent('');
                   })
                   .on('error', (error: any) => {
                       console.error('Error adding task:', error);
@@ -223,13 +258,27 @@ export default function BubblePage() {
     })
 
   return (
-    <div>
+    <div className='p-4'>
         <h1 className='text-center mb-2'>Hello</h1>
         {isConnected ? (
-            <>
-              <p className="text-gray-700">Your account address is: {account}</p>
-              <p className="text-gray-700">Your balance is: {balance} SepoliaETH</p>
-            </>
+            <div className='flex flex-col border-b-2 pb-2'>
+              <p className="flex flex-col items-center mb-2 text-gray-700">
+                <span>
+                  Your account address is: 
+                </span>
+                <span>
+                  {account}
+                </span>
+              </p>
+              <p className="flex flex-col items-center mb-2 text-gray-700">
+                <span>
+                  Your account balance is: 
+                </span>
+                <span>
+                  {balance}
+                </span>
+              </p>
+            </div>
         ) : (
             <>
                 <button
@@ -242,13 +291,13 @@ export default function BubblePage() {
         )}
         <div className='my-4'>
           <h2>Tasks:</h2>
-          <form onSubmit={handleSubmit}>
-              <input type="text" value={taskcontent} onChange={handleChange} />
-              <button onClick={addTask}>Add task</button>
+          <form onSubmit={handleSubmit} className='flex mt-2'>
+              <input type="text" value={taskcontent} onChange={handleChange} className='border p-1 flex-grow mr-2 rounded pl-1'/>
+              <button onClick={addTask} className="bg-blue-500 text-white p-1 rounded">Add task</button>
           </form>
-          <ul>
+          <ul className='flex flex-col mt-6'>
             {tasks.map((task) => (
-              <li key={task.content}>task: {task.content}</li>
+              <li key={task.content} className='w-full border border-slate-600 rounded-lg mb-2 cursor-pointer bg-white p-2'>{task.content}</li>
             ))}
           </ul>
         </div>
