@@ -22,18 +22,15 @@ export default function BubblePage() {
                 // Add state to handle correct network
                 return;
             }
-            let chainId = await ethereum.request({ method: "eth_chainId" });
-            console.log('chainId:', chainId);
-            const web3 = new Web3(window.ethereum);
-            
 
+            const web3 = new Web3(window.ethereum);
             const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
             console.log("accounts:", accounts[0]);
-            setIsConnected(true);
-            setAccount(accounts[0]);
-
             const balanceInWei = await web3.eth.getBalance(accounts[0]);
             const balanceInEth = web3.utils.fromWei(balanceInWei, "ether");
+
+            setIsConnected(true);
+            setAccount(accounts[0]);
             setBalance(balanceInEth);
 
         } catch (err) {
@@ -51,7 +48,7 @@ export default function BubblePage() {
         try {
             const { ethereum } = window;
             if (ethereum) {
-                const web3Provider = new Web3(ethereum);
+                const web3Provider = new Web3(window.ethereum);
                 const TaskContract = new web3Provider.eth.Contract([
                   {
                     "anonymous": false,
@@ -232,8 +229,6 @@ export default function BubblePage() {
                           isDeleted: task.isDeleted,
                       };
                       setTasks([...tasks, newTask]);
-                      console.log("Added task:", newTask);
-                      console.log("Tasks:", tasks);
                       setTaskcontent('');
                   })
                   .on('error', (error: any) => {
