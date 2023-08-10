@@ -81,8 +81,7 @@ You can check the list of wallet using `bubble wallet list`
 > initial-application-key 0xee...   
 > tuto-key        0xdb...
 
-   
-     
+
 - Add bubble servers on any blockchains or testnets (Base Goerli)
 
 ```
@@ -92,7 +91,6 @@ You can check the list of servers using `bubble servers list`
 
 > bubble-server-tuto     undefined       https://vault.bubbleprotocol.com/v2/base-goerli
 
-   
 
 - Create bubble
 
