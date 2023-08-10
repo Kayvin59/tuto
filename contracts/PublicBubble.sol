@@ -11,7 +11,7 @@ contract PublicBubble is AccessControlledStorage{
   address owner = msg.sender;
   bool terminated = false;
 
-  function getAccessPermissions( address /* user */, uint256 /* contentId */ ) override external view returns (uint256) {
+  function getAccessPermissions( address /* user */, uint256 contentId ) override external view returns (uint256) {
 
         /**
          * If the bubble has been terminated, the off-chain storage service will delete the bubble and 
@@ -19,9 +19,13 @@ contract PublicBubble is AccessControlledStorage{
          */
         if (terminated) return BUBBLE_TERMINATED_BIT;
 
+        /**
+         * All directories within the bubble are public. Anyone can create one using identifier from 0 to 100
+         */
+        if (contentId <= 100) return DIRECTORY_BIT | READ_BIT | WRITE_BIT | APPEND_BIT;
 
         /**
-         * All files within the bubble are public.  Anyone can read, write and append.
+         * All files within the bubble are public. Anyone can read, write and append.
          */
         else return READ_BIT | WRITE_BIT | APPEND_BIT;
   }
