@@ -68,29 +68,31 @@ bubble contract deploy -f PublicBubble.json --save example-bubble
 
 ## Create and use bubble
 
-With Bubble tools :
+**With Bubble tools :**
 
 - Create a private key and save it to the wallet with the given label 
 
 ```
 bubble wallet create tuto-key
 ```
-You can check the list of wallet using [`bubble wallet list`]
+You can check the list of wallet using `bubble wallet list`
  
-> default-key     0xee...
-> initial-application-key 0xee...
+> default-key     0xee...  
+> initial-application-key 0xee...   
 > tuto-key        0xdb...
 
-
+   
+     
 - Add bubble servers on any blockchains or testnets (Base Goerli)
 
 ```
 bubble servers add bubble-server-tuto https://vault.bubbleprotocol.com/v2/base-goerli
 ```
-You can check the list of servers using [`bubble servers list`]
+You can check the list of servers using `bubble servers list`
 
 > bubble-server-tuto     undefined       https://vault.bubbleprotocol.com/v2/base-goerli
 
+   
 
 - Create bubble
 
@@ -98,6 +100,7 @@ You can check the list of servers using [`bubble servers list`]
 bubble content create-bubble bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65
 ```
 
+   
 
 - Check if the user has permissions to read, write and append file to the bubble
 
@@ -109,6 +112,7 @@ bubble content permissions bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC
 > [!NOTE]  
 > File zero is reserved and means the root of the bubble itself. // TODO
 
+   
 
 - Write data to bubble file
 
@@ -116,9 +120,10 @@ bubble content permissions bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC
 bubble content write bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1 -d "First task!"
 ```
 
-You can read the content of the bubble by using [`bubble content read bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1`]
+You can read the content of the bubble by using `bubble content read bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1`
 > First task!
 
 
+   
 
-With Bubble class :
+**With Bubble class :**
