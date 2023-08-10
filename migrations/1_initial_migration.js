@@ -1,5 +1,5 @@
-const TasksList = artifacts.require('../contracts/TasksList.sol');
+const PublicBubble = artifacts.require('../contracts/PublicBubble.sol');
 
 module.exports = function (deployer) {
-  deployer.deploy(TasksList)
+  deployer.deploy(PublicBubble)
 }
