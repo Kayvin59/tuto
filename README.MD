@@ -2,7 +2,7 @@
 
 Create a Bubble that will contain a private area for storing to-do list
 
-# Bubble Protocol
+## Bubble Protocol
 
 Bubble Protocol provides access-controlled off-chain storage for Web3 applications and allows blockchains to govern private data. It adds Web3 capabilities to any storage system, whether a public relay server, decentralized storage network, home server, or private company infrastructure.
 
@@ -10,11 +10,15 @@ Bubble Protocol is blockchain agnostic and is designed to be highly adaptable, p
 
 Let’s see how this applies with a to-do list.
 
-# Setup
+## Setup
 
-- Truffle-box
+- Metamask wallet (Base Goerli)
+- Setup Bubble CLI
+- Configure your blockchain providers
 
-# Contract
+## Contract
+
+Implement Access Control Contract.
 
 ```
 // SPDX-License-Identifier: MIT
@@ -25,25 +29,12 @@ import "./AccessControlledStorage.sol";
 import "./AccessControlBits.sol";
 
 
-contract TasksList {
+contract PublicBubble is AccessControlledStorage{
 
   address owner = msg.sender;
   bool terminated = false;
 
-  event AddTask(address recipient, uint TaskId);
-  event DeleteTask(uint TaskId, bool isDeleted);
-
-  struct Task {
-    uint id;
-    string content;
-    bool isDeleted;
-  }
-
-  Task[] private tasks;
-  mapping(uint256 => address) public taskToOwner;
-
-  // override issue !!!
-  function getAccessPermissions( address user, uint256 contentId ) external view returns (uint256) {
+  function getAccessPermissions( address /* user */, uint256 /* contentId */ ) override external view returns (uint256) {
 
         /**
          * If the bubble has been terminated, the off-chain storage service will delete the bubble and 
@@ -51,11 +42,6 @@ contract TasksList {
          */
         if (terminated) return BUBBLE_TERMINATED_BIT;
 
-        /**
-         * File 0 is a special file that represents the root of the bubble. Only users with write permission 
-         * to file 0 can construct the bubble on an off-chain storage service.
-         */
-        else if (contentId == 0 && user != owner) return NO_PERMISSIONS;
 
         /**
          * All files within the bubble are public.  Anyone can read, write and append.
@@ -69,35 +55,70 @@ contract TasksList {
         terminated = true;
     }
 
-  function addTask(string memory content, bool isDeleted) external {
-    uint taskId = tasks.length;
-    tasks.push(Task(taskId, content, isDeleted));
-    taskToOwner[taskId] = msg.sender;
-    emit AddTask(msg.sender, taskId);
-  }
-
-  function getMyTasks() external view returns (Task[] memory) {
-      Task[] memory temporary = new Task[](tasks.length); // Array no longer than our tasks
-      uint counter = 0;
-
-      for(uint i = 0; i < tasks.length; i++) {
-        if(taskToOwner[i] == msg.sender && tasks[i].isDeleted == false) {
-          temporary[counter] = tasks[i];
-          counter++;
-        }
-      }
-      Task[] memory result = new Task[](counter);
-      for(uint i = 0; i < counter; i++) {
-        result[i] = temporary[i];
-      }
-      return result;
-  }
-
-  function deleteTask(uint taskId, bool isDeleted) external {
-      if(taskToOwner[taskId] == msg.sender) {
-        tasks[taskId].isDeleted = isDeleted;
-        emit DeleteTask(taskId, isDeleted);
-      }
-  }
 }
 ```
+
+Deploy contract with remix or bubble-tools
+
+```
+solc PublicBubble.sol --combined-json abi,bin | jq -r '.contracts["PublicBubble.sol:PublicBubble"]' > PublicBubble.json
+
+bubble contract deploy -f PublicBubble.json --save example-bubble
+```
+
+## Create and use bubble
+
+With Bubble tools :
+
+- Create a private key and save it to the wallet with the given label 
+
+```
+bubble wallet create tuto-key
+```
+You can check the list of wallet using [`bubble wallet list`]
+ 
+> default-key     0xee...
+> initial-application-key 0xee...
+> tuto-key        0xdb...
+
+
+- Add bubble servers on any blockchains or testnets (Base Goerli)
+
+```
+bubble servers add bubble-server-tuto https://vault.bubbleprotocol.com/v2/base-goerli
+```
+You can check the list of servers using [`bubble servers list`]
+
+> bubble-server-tuto     undefined       https://vault.bubbleprotocol.com/v2/base-goerli
+
+
+- Create bubble
+
+```
+bubble content create-bubble bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65
+```
+
+
+- Check if the user has permissions to read, write and append file to the bubble
+
+```
+bubble content permissions bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1
+```
+> --rwa--
+
+> [!NOTE]  
+> File zero is reserved and means the root of the bubble itself. // TODO
+
+
+- Write data to bubble file
+
+```
+bubble content write bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1 -d "First task!"
+```
+
+You can read the content of the bubble by using [`bubble content read bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1`]
+> First task!
+
+
+
+With Bubble class :
