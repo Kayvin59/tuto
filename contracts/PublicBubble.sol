@@ -19,11 +19,6 @@ contract PublicBubble is AccessControlledStorage{
          */
         if (terminated) return BUBBLE_TERMINATED_BIT;
 
-        /**
-         * File 0 is a special file that represents the root of the bubble. Only users with write permission 
-         * to file 0 can construct the bubble on an off-chain storage service.
-         */
-        // else if (contentId == 0 && user != owner) return NO_PERMISSIONS;
 
         /**
          * All files within the bubble are public.  Anyone can read, write and append.

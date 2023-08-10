@@ -2,10 +2,11 @@
 
 import { FormEvent, useEffect, useState } from 'react'
 import Web3 from 'web3'
+import { AbiItem } from 'web3-utils'
 import { TaskContractAddress } from '../config.js'
-import TasksList from '../../build/contracts/TasksList.json'
+import TasksList from '../../build/contracts/PublicBubble.json'
 
-const abi = TasksList.abi
+const TaskContractAbi: AbiItem[] = TasksList.abi as AbiItem[];
 
 export default function BubblePage() {
     const [isConnected, setIsConnected] = useState(false)
@@ -49,165 +50,7 @@ export default function BubblePage() {
             const { ethereum } = window;
             if (ethereum) {
                 const web3Provider = new Web3(window.ethereum);
-                const TaskContract = new web3Provider.eth.Contract([
-                  {
-                    "anonymous": false,
-                    "inputs": [
-                      {
-                        "indexed": false,
-                        "internalType": "address",
-                        "name": "recipient",
-                        "type": "address"
-                      },
-                      {
-                        "indexed": false,
-                        "internalType": "uint256",
-                        "name": "TaskId",
-                        "type": "uint256"
-                      }
-                    ],
-                    "name": "AddTask",
-                    "type": "event"
-                  },
-                  {
-                    "anonymous": false,
-                    "inputs": [
-                      {
-                        "indexed": false,
-                        "internalType": "uint256",
-                        "name": "TaskId",
-                        "type": "uint256"
-                      },
-                      {
-                        "indexed": false,
-                        "internalType": "bool",
-                        "name": "isDeleted",
-                        "type": "bool"
-                      }
-                    ],
-                    "name": "DeleteTask",
-                    "type": "event"
-                  },
-                  {
-                    "inputs": [
-                      {
-                        "internalType": "uint256",
-                        "name": "",
-                        "type": "uint256"
-                      }
-                    ],
-                    "name": "taskToOwner",
-                    "outputs": [
-                      {
-                        "internalType": "address",
-                        "name": "",
-                        "type": "address"
-                      }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function",
-                    "constant": true
-                  },
-                  {
-                    "inputs": [
-                      {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                      },
-                      {
-                        "internalType": "uint256",
-                        "name": "contentId",
-                        "type": "uint256"
-                      }
-                    ],
-                    "name": "getAccessPermissions",
-                    "outputs": [
-                      {
-                        "internalType": "uint256",
-                        "name": "",
-                        "type": "uint256"
-                      }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function",
-                    "constant": true
-                  },
-                  {
-                    "inputs": [],
-                    "name": "terminate",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                  },
-                  {
-                    "inputs": [
-                      {
-                        "internalType": "string",
-                        "name": "content",
-                        "type": "string"
-                      },
-                      {
-                        "internalType": "bool",
-                        "name": "isDeleted",
-                        "type": "bool"
-                      }
-                    ],
-                    "name": "addTask",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                  },
-                  {
-                    "inputs": [],
-                    "name": "getMyTasks",
-                    "outputs": [
-                      {
-                        "components": [
-                          {
-                            "internalType": "uint256",
-                            "name": "id",
-                            "type": "uint256"
-                          },
-                          {
-                            "internalType": "string",
-                            "name": "content",
-                            "type": "string"
-                          },
-                          {
-                            "internalType": "bool",
-                            "name": "isDeleted",
-                            "type": "bool"
-                          }
-                        ],
-                        "internalType": "struct TasksList.Task[]",
-                        "name": "",
-                        "type": "tuple[]"
-                      }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function",
-                    "constant": true
-                  },
-                  {
-                    "inputs": [
-                      {
-                        "internalType": "uint256",
-                        "name": "taskId",
-                        "type": "uint256"
-                      },
-                      {
-                        "internalType": "bool",
-                        "name": "isDeleted",
-                        "type": "bool"
-                      }
-                    ],
-                    "name": "deleteTask",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                  }
-                ], TaskContractAddress);
+                const TaskContract = new web3Provider.eth.Contract(TaskContractAbi, TaskContractAddress);
                   console.log("TaskContract:", TaskContract);          
 
                 
