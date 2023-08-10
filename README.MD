@@ -12,7 +12,23 @@ Let’s see how this applies with a to-do list.
 
 ## Setup
 
+- Setup truffle/ganache config
+
+```
+npm install -g truffle
+npm install -g ganache-cli
+```
+
+Create project structure by running `truffle init`
+Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind
+Compile and deploy contract :
+```
+truffle compile
+truffle migrate
+```
+
 - Metamask wallet (Base Goerli)
+
 - Setup Bubble CLI
 - Configure your blockchain providers
 
