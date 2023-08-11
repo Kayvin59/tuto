@@ -34,8 +34,18 @@ Use a private key to import a new account.
 
 
 ( When using bubble tools )
-- Setup Bubble CLI
+- Install Bubble CLI
+```
+npm install -g @bubble-protocol/bubble-tools
+```    
+
+
 - Configure your blockchain providers
+For personal development purposes you are free to use Bubble Protocol's providers:
+```
+curl https://vault.bubbleprotocol.com:8125/providers > ~/.bubble-tools/providers
+```   
+   
 
 ## Contract
 
