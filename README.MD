@@ -96,6 +96,27 @@ contract PublicBubble is AccessControlledStorage{
 
 ## Create and use bubble
 
+
+
+**With Bubble class :**
+    
+        
+Create a directory for frontend
+```
+mkdir front
+cd front
+```
+    
+Install Next JS and bubble protocole services
+```
+npx create-next-app@latest
+npm i @bubble-protocol/client @bubble-protocol/core @bubble-protocol/server
+```
+
+
+
+
+
 **With Bubble tools :**
 
 - Create a private key and save it to the wallet with the given label 
@@ -158,18 +179,3 @@ You can read the content of the bubble by using `bubble content read bubble-serv
 > First task!
 
    
-
-**With Bubble class :**
-    
-        
-Create a directory for frontend
-```
-mkdir front
-cd front
-```
-    
-Install Next JS and bubble protocole services
-```
-npx create-next-app@latest
-npm i @bubble-protocol/client @bubble-protocol/core @bubble-protocol/server
-```
