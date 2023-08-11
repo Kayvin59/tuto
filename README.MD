@@ -15,8 +15,8 @@ Let’s see how this applies with a to-do list.
 - Install truffle and ganache-cli
 
 ```
-npm install -g truffle
-npm install -g ganache-cli
+npm i -g truffle
+npm i -g ganache-cli
 ```
 
 Create project structure by running `truffle init`.   
@@ -36,7 +36,7 @@ Use a private key to import a new account.
 ( When using bubble tools )
 - Install Bubble CLI
 ```
-npm install -g @bubble-protocol/bubble-tools
+npm i -g @bubble-protocol/bubble-tools
 ```    
 
 
@@ -101,6 +101,7 @@ contract PublicBubble is AccessControlledStorage{
 - Create a private key and save it to the wallet with the given label 
 
 ```
+// create [label]
 bubble wallet create tuto-key
 ```
 You can check the list of wallet using `bubble wallet list`
@@ -113,6 +114,7 @@ You can check the list of wallet using `bubble wallet list`
 - Add bubble servers on any blockchains or testnets (Base Goerli)
 
 ```
+// add <label> <url>
 bubble servers add bubble-server-tuto https://vault.bubbleprotocol.com/v2/base-goerli
 ```
 You can check the list of servers using `bubble servers list`
@@ -123,6 +125,7 @@ You can check the list of servers using `bubble servers list`
 - Create bubble
 
 ```
+// create-bubble [options] <server> <contract>
 bubble content create-bubble bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65
 ```
 
@@ -131,18 +134,23 @@ bubble content create-bubble bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0
 - Check if the user has permissions to read, write and append file to the bubble
 
 ```
+// permissions [options] <server> <contract> [filename]
 bubble content permissions bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1
 ```
 > --rwa--
+    
+       
 
 > [!NOTE]  
-> File zero is reserved and means the root of the bubble itself. // TODO
+> File zero is reserved and means the root of the bubble itself. 
+> Filename ≤ 100 are directories. Filename > 100 are files.
 
    
 
 - Write data to bubble file
 
 ```
+// write [options] <server> <contract> <filename> [file]
 bubble content write bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1 -d "First task!"
 ```
 
@@ -152,3 +160,16 @@ You can read the content of the bubble by using `bubble content read bubble-serv
    
 
 **With Bubble class :**
+    
+        
+Create a folder for frontend
+```
+mkdir front
+cd front
+```
+    
+Install Next JS and bubble protocole services
+```
+npx create-next-app@latest
+npm i @bubble-protocol/client @bubble-protocol/core @bubble-protocol/server
+```
