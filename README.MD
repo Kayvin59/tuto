@@ -137,9 +137,7 @@ bubble content write bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b
 ```
 
 You can read the content of the bubble by using `bubble content read bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1`
-```
 > First task!
-```
 
    
 
