@@ -20,7 +20,7 @@ npm install -g ganache-cli
 ```
 
 Create project structure by running `truffle init`.   
-Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind .  
+Start the ganache blockchain using `ganache-cli` in a separate terminal and let it run behind .  
 Compile and deploy contract :  
 > Use Public Bubble contract below and make the necessary changes.
 ```
