@@ -28,7 +28,8 @@ truffle compile
 truffle migrate
 ```
 
-- Connect Metamask to ganache network.    
+- Connect Metamask to ganache network.   
+
 Add ganache network manually by entering "HTTP://127.0.0.1:8545", "1337" and "ETH" respectively with RPC URL, chain ID and currency symbol.    
 Use a private key to import a new account.
 
