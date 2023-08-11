@@ -162,7 +162,7 @@ You can read the content of the bubble by using `bubble content read bubble-serv
 **With Bubble class :**
     
         
-Create a folder for frontend
+Create a directory for frontend
 ```
 mkdir front
 cd front
