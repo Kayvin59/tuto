@@ -19,9 +19,10 @@ npm install -g truffle
 npm install -g ganache-cli
 ```
 
-Create project structure by running `truffle init`   
-Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind   
-Compile and deploy contract :   
+Create project structure by running `truffle init`.   
+Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind .  
+Compile and deploy contract :  
+> Use Public Bubble contract below and make the necessary changes.
 ```
 truffle compile
 truffle migrate
@@ -29,7 +30,7 @@ truffle migrate
 
 - Connect Metamask to ganache network
 Add ganache network manually by entering "HTTP://127.0.0.1:8545", "1337" and "ETH" respectively with RPC URL, chain ID and currency symbol.
-Use a private key to import a new account
+Use a private key to import a new account.
 
 
 ( When using bubble tools )
@@ -62,9 +63,13 @@ contract PublicBubble is AccessControlledStorage{
          */
         if (terminated) return BUBBLE_TERMINATED_BIT;
 
+        /**
+         * All directories within the bubble are public. Anyone can create one using identifier from 0 to 100
+         */
+        if (contentId <= 100) return DIRECTORY_BIT | READ_BIT | WRITE_BIT | APPEND_BIT;
 
         /**
-         * All files within the bubble are public.  Anyone can read, write and append.
+         * All files within the bubble are public. Anyone can read, write and append.
          */
         else return READ_BIT | WRITE_BIT | APPEND_BIT;
   }
@@ -77,14 +82,7 @@ contract PublicBubble is AccessControlledStorage{
 
 }
 ```
-
-Deploy contract with remix or bubble-tools
-
-```
-solc PublicBubble.sol --combined-json abi,bin | jq -r '.contracts["PublicBubble.sol:PublicBubble"]' > PublicBubble.json
-
-bubble contract deploy -f PublicBubble.json --save example-bubble
-```
+   
 
 ## Create and use bubble
 
