@@ -19,8 +19,8 @@ npm i -g truffle
 npm i -g ganache-cli
 ```
 
-Create project structure by running `truffle init`.   
-Start the ganache blockchain using `ganache-cli` in a separate terminal and let it run behind .  
+Create project structure by running `truffle init`.       
+Start the ganache blockchain using `ganache-cli` in a separate terminal and let it run behind.      
 Compile and deploy contract :  
 > Use Public Bubble contract below and make the necessary changes.
 ```
@@ -28,8 +28,8 @@ truffle compile
 truffle migrate
 ```
 
-- Connect Metamask to ganache network
-Add ganache network manually by entering "HTTP://127.0.0.1:8545", "1337" and "ETH" respectively with RPC URL, chain ID and currency symbol.
+- Connect Metamask to ganache network.    
+Add ganache network manually by entering "HTTP://127.0.0.1:8545", "1337" and "ETH" respectively with RPC URL, chain ID and currency symbol.    
 Use a private key to import a new account.
 
 
