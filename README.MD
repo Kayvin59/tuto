@@ -55,7 +55,7 @@ contract PublicBubble is AccessControlledStorage{
   address owner = msg.sender;
   bool terminated = false;
 
-  function getAccessPermissions( address /* user */, uint256 /* contentId */ ) override external view returns (uint256) {
+  function getAccessPermissions( address /* user */, uint256 contentId ) override external view returns (uint256) {
 
         /**
          * If the bubble has been terminated, the off-chain storage service will delete the bubble and 
