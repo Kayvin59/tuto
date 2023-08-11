@@ -12,23 +12,27 @@ Let’s see how this applies with a to-do list.
 
 ## Setup
 
-- Setup truffle/ganache config
+- Install truffle and ganache-cli
 
 ```
 npm install -g truffle
 npm install -g ganache-cli
 ```
 
-Create project structure by running `truffle init`
-Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind
-Compile and deploy contract :
+Create project structure by running `truffle init`   
+Start the ganache blockchain `ganache-cli` in a separate terminal and let it run behind   
+Compile and deploy contract :   
 ```
 truffle compile
 truffle migrate
 ```
 
-- Metamask wallet (Base Goerli)
+- Connect Metamask to ganache network
+Add ganache network manually by entering "HTTP://127.0.0.1:8545", "1337" and "ETH" respectively with RPC URL, chain ID and currency symbol.
+Use a private key to import a new account
 
+
+( When using bubble tools )
 - Setup Bubble CLI
 - Configure your blockchain providers
 
@@ -135,8 +139,9 @@ bubble content write bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b
 ```
 
 You can read the content of the bubble by using `bubble content read bubble-server-tuto 0xBf0869e0BFb96902BFa1b66b1C3bb0FC41a42b65 1`
+```
 > First task!
-
+```
 
    
 
